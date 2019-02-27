@@ -10,6 +10,7 @@ const app = express();
 // });
 const PORT = process.env.PORT || 8081;
 
+// app.use('/houses/:houseId', express.static(path.resolve(__dirname, '../client/dist')));
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
@@ -25,6 +26,39 @@ app.get('/:houseId', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/../client/dist/index.html'));
 });
 
+// create
+app.post('/houses/:houseId', (req, res) => {
+});
+
+// read
+app.get('/houses/:houseId', (req, res) => {
+});
+
+// update
+app.patch('/houses/:houseId', (req, res) => {
+});
+
+// delete
+app.delete('/houses/:houseId', (req, res) => {
+});
+
+// create
+app.post('/agents/:agentId', (req, res) => {
+});
+
+// read
+app.get('/agents/:agentId', (req, res) => {
+});
+
+// update
+app.patch('/agents/:agentId', (req, res) => {
+});
+
+// delete
+app.delete('/agents/:agentId', (req, res) => {
+});
+
+//steve
 app.get('/houseId/listedAgent/:houseId', (req, res) => {
   let houseId = req.params.houseId;
   db.getListedAgent(houseId, (err, data) => {
@@ -36,6 +70,7 @@ app.get('/houseId/listedAgent/:houseId', (req, res) => {
   });
 });
 
+//steve
 app.get('/houseId/premierAgents', (req, res) => {
   db.getPremierAgents((err, data) => {
     if (err) {
