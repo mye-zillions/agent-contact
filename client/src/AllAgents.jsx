@@ -19,7 +19,8 @@ class AllAgents extends React.Component {
     };
   }
   componentDidMount() {
-    axios.get(`http://steve.us-east-2.elasticbeanstalk.com/houseId/listedAgent/${this.props.houseId}`)
+    // axios.get(`http://steve.us-east-2.elasticbeanstalk.com/houseId/listedAgent/${this.props.houseId}`)
+    axios.get(`/houseId/listedAgent/${this.props.houseId}`)
       .then(response => {
 
         // response is of type string
@@ -27,7 +28,8 @@ class AllAgents extends React.Component {
         const listAgent = response.data[0];
         this.setState({ lAgent: listAgent });
       });
-    axios.get(`http://steve.us-east-2.elasticbeanstalk.com/houseId/premierAgents`)
+    // axios.get(`http://steve.us-east-2.elasticbeanstalk.com/houseId/premierAgents`)
+    axios.get(`/houseId/premierAgents`)
       .then(response => {
         const preAgent0 = response.data[0];
         const preAgent1 = response.data[1];

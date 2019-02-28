@@ -7,6 +7,7 @@
     "test": "jest || true",
     "dev-pack": "webpack --watch",
     "start": "node ./server/index.js",
+    "server": "nodemon ./server/index.js",
     "faker": "node ./data/fakeData.js"
   },
   "repository": {
