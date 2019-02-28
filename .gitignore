@@ -3,3 +3,5 @@ node_modules/
 
 # ignore bundles
 client/dist/bundle.js
+
+keys.js

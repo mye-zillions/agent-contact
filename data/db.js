@@ -1,9 +1,10 @@
 const mysql = require('mysql');
+const keys = require('../keys');
 
 const connection = mysql.createConnection({
-  host: 'agents3.csast8i0snkv.us-east-2.rds.amazonaws.com',
-  user: 'root',
-  password: 'Password1!',
+  // host: 'agents3.csast8i0snkv.us-east-2.rds.amazonaws.com',
+  user: keys.user,
+  password: keys.password,
   database: 'agents3',
 });
 
@@ -23,6 +24,39 @@ const getListedAgent = (houseId, callback) => {
   });
 };
 
+const createListedAgent = (houseId, options, callback) => {
+  let query = 'INSERT INTO listedAgent (houseId, name, company, reviews, recentSales, phone, url) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  connection.query(query, [houseId, options.name, options.company, options.reviews, options.recentSales, options.phone, options.url], (err, data) => {
+    if (err) {
+      console.log('Creating AGENT FAILED', err);
+    } else {
+      callback(err, data);
+    }
+  });
+};
+
+const updateListedAgent = (houseId, options, callback) => {
+  let query = 'UPDATE listedAgent SET name = ?, company = ?, reviews = ?, recentSales = ?, phone = ?, url = ? WHERE houseId = ?';
+  connection.query(query, [options.name, options.company, options.reviews, options.recentSales, options.phone, options.url, houseId], (err, data) => {
+    if (err) {
+      console.log('Creating AGENT FAILED', err);
+    } else {
+      callback(err, data);
+    }
+  });
+};
+
+const deleteListedAgent = (houseId, callback) => {
+  let query = 'DELETE from listedAgent WHERE houseId = ?';
+  connection.query(query, [houseId], (err, data) => {
+    if (err) {
+      console.log('Creating AGENT FAILED', err);
+    } else {
+      callback(err, data);
+    }
+  });
+};
+
 const getPremierAgents = (callback) => {
   connection.query('SELECT * FROM premierAgents', (err, data) => {
     if (err) {
@@ -35,4 +69,4 @@ const getPremierAgents = (callback) => {
   });
 };
 
-module.exports = { getListedAgent, getPremierAgents };
+module.exports = { getListedAgent, createListedAgent, updateListedAgent, deleteListedAgent, getPremierAgents };

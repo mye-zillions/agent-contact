@@ -20,5 +20,38 @@
 5) 'npm run start' to start server
 6) localhost:6969 is server to copy into browser
 
+# CRUD Operations
 
+GET '/houseId/listedAgent/:houseId'
+  - required params:
+    - path:
+      - houseId
 
+POST '/houses/:houseId/listedAgent'
+  - required params:
+    - path:
+      - houseId
+    - query:
+      - name
+      - company
+      - reviews
+      - recentSales
+      - phone
+      - url
+
+PATCH '/houses/:houseId/listedAgent'
+  - required params:
+    - path:
+      - houseId
+    - query:
+      - name
+      - company
+      - reviews
+      - recentSales
+      - phone
+      - url
+
+DELETE '/houses/:houseId/listedAgent'
+  - required params:
+    - path:
+      - houseId
