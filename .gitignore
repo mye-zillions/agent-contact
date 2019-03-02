@@ -6,5 +6,5 @@ client/dist/bundle.js
 
 keys.js
 
-/data/agents1mill.csv
-/data/listings10mill.csv
+/data/agents.csv
+/data/listings.csv
