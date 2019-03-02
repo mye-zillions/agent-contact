@@ -20,6 +20,9 @@
 5) 'npm run start' to start server
 6) localhost:6969 is server to copy into browser
 
+# Data Generation
+run `node data/csvSeed.js` from root directory
+
 # CRUD Operations
 
 GET '/houseId/listedAgent/:houseId'
