@@ -1,7 +1,7 @@
 const fs = require('fs');
 const faker = require('faker');
 
-// generateAgents(1000000);
+generateAgents(1000000);
 generateListings(10000000);
 
 
