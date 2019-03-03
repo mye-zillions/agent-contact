@@ -8,3 +8,6 @@ keys.js
 
 /data/agents.csv
 /data/listings.csv
+
+/data/agents.json
+/data/listings.json
