@@ -1,17 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../data/db.js');
 const pg = require('../data/index.js');
+const houses = require('./controllers/houses');
 
 const app = express();
-// app.use(function (req, res, next) {
-//   res.setHeader("Content-Security-Policy", "font-src 'self' https://use.fontawesome.com/releases/v5.7.2/css/all.css");
-//   return next();
-// });
 const PORT = process.env.PORT || 8081;
 
-// app.use('/houses/:houseId', express.static(path.resolve(__dirname, '../client/dist')));
 app.use('/:houseId', express.static(path.resolve(__dirname, '../client/dist')));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
@@ -27,29 +22,9 @@ app.post('/houses/:houseId', (req, res) => {
 });
 
 // read
-app.get('/houses/:houseId', (req, res) => {
-  let houseId = req.params.houseId;
-  console.log('get req for house: ', houseId);
-  pg.getHouseInfo(houseId, (err, data) => {
-    if (err) {
-      res.sendStatus(404);
-    } else {
-      res.status(200).send(data);
-    }
-  });
-});
+app.get('/houses/:houseId', houses.getAllHouseInfo);
 
-app.get('/houses/:houseId/premierAgents', (req, res) => {
-  let houseId = req.params.houseId;
-  console.log('get premierAgents');
-  pg.getPremierAgentsForHouse(houseId, (err, data) => {
-    if (err) {
-      res.sendStatus(404);
-    } else {
-      res.status(200).send(data);
-    }
-  });
-});
+app.get('/houses/:houseId/premierAgents', houses.getPremierAgents);
 
 // update
 app.patch('/houses/:houseId', (req, res) => {

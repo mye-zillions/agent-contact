@@ -16,7 +16,6 @@ const getHouseInfo = (listingId, callback) => {
       console.log(err);
       callback(err);
     } else {
-      console.log(data);
       callback(null, data.rows);
     }
   });
@@ -28,7 +27,6 @@ const getPremierAgents = (callback) => {
       console.log(err);
       callback(err);
     } else {
-      console.log(data);
       callback(null, data.rows);
     }
   });
