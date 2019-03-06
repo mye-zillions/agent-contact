@@ -1,0 +1,74 @@
+psql:
+select id from listings where street like '%Cartwright%' and city like '%Sophia%';
+-- benchmark: 37.501s, no way to index for this
+
+Find listing where street includes "x" and in the zip code equals y
+psql:
+select id from listings where street like '%Cartwright%' and zip = 86680; 
+-- benchmark: 18.150s
+-- after creating index on listings(zip, street): 0.101s, after creating index on listings(zip): 0.850 ms
+mongo:
+db.listings.find({street: /West/, zip: 06282})
+-- benchmark: >20 min
+
+Find listings where the city equals Griffinview
+psql:
+select * from listings where city = 'Griffinview';
+-- benchmark: 26.407s
+-- after adding index on listings(city): 1.285 ms
+mongo:
+db.listings.find({city: 'Griffinview'})
+-- benchmark: 
+
+Create new listing
+psql:
+insert into listings (street, city, state, zip, listing_agent) values ('1225 Vienna Dr', 'Sunnyvale', 'CA', '94089', '14');
+-- after adding indexes: 81.366 ms
+mongo:
+db.listings.insertOne({id: 10000003, street: "123 Fake Street", city: "Fake City", state: "CA", zip: 94105, agent: {id: 1, name: "Miss Delbert Hermann", company: "Mayer Inc", reviews: 86, recentSales: 12, phone: "(522) 705-3581", premier: true, zip: 59736, photo: "https://s3.amazonaws.com/uifaces/faces/twitter/gojeanyn/128.jpg"}})
+-- after indexes:
+
+Find all info associated with a listing
+psql:
+SELECT listings.street, listings.city, listings.state, listings.zip as home_zip,agents.name, agents.reviews, agents.recentSales, agents.phone, agents.premier, agents.photo FROM listings INNER JOIN agents on listings.listing_agent = agents.id WHERE listings.id = 9000000;
+-- benchmark: 0.175s
+-- after creating index using listings_pkey and agents_pkey: 9.286 ms
+mongo:
+db.listings.find({id: 9000000})
+-- benchmark:
+-- after indexing id: 113ms first run, second run 19ms
+
+psql:
+SELECT * from agents INNER JOIN listings on agents.zip = listings.zip WHERE agents.premier = true AND listings.id = 9000000 LIMIT 3;
+-- benchmark: 3.584s
+-- after creating index on agents(zip, premier): 0.108s
+  -- removing the limit and after a few more runs: 0.033s
+
+psql:
+SELECT * from agents INNER JOIN listings on agents.zip = listings.zip WHERE listings.id = 9000000;
+-- benchmark: 0.183s
+-- after adding index agents_zip: 0.057s
+  -- db performs better if i don't have a where clause on the setting for `premier` and the limit. I can handle these on the front end, by filtering the data that has premier true, and only displaying 3 items
+    -- after running these queries more, the more specific one is consistently performing better because of the premier_agents_by_zip index and the limit, however I'm thinking it makes more sense to display 3 random premiers than the same 3 every time so I don't think a limit makes sense on the db side
+-- there's no way to do this exact query in mongo, I must first query to get the listing info, then query again using this listing zip, so i might take note of the postgres query that would be similar:
+  psql:
+  SELECT * from agents WHERE agents.premier = true and agents.zip = 86680;
+  -- 2.312 ms using index premier_agents_by_zip
+  mongo:
+  db.listings.find({agent.premier: true, agent.zip: 86680})
+  -- benchmark: 
+  -- after zip index: 
+
+
+INDEXES
+psql:
+create index premier_agents_by_zip on agents(zip, premier);
+create index listing_agents on listings(listing_agent);
+create index listing_zip on listings(zip);
+create index listing_city on listings(city);
+create index agents_zip on agents(zip);
+
+mongodb:
+db.listings.createIndex({"id": 1})
+db.listings.createIndex({"zip": 1})
+db.listings.createIndex({"agent.zip": 1})
