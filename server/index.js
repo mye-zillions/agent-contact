@@ -39,18 +39,6 @@ app.get('/houses/:houseId', (req, res) => {
   });
 });
 
-// app.get('/premierAgents', (req, res) => {
-//   let houseId = req.params.houseId;
-//   console.log('get premierAgents');
-//   pg.getPremierAgents((err, data) => {
-//     if (err) {
-//       res.sendStatus(404);
-//     } else {
-//       res.status(200).send(data);
-//     }
-//   });
-// });
-
 app.get('/houses/:houseId/premierAgents', (req, res) => {
   let houseId = req.params.houseId;
   console.log('get premierAgents');
