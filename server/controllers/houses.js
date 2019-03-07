@@ -24,6 +24,7 @@ const createNewHouse = (req, res) => {
   });
 };
 
+
 module.exports = {
   getAllHouseInfo,
   createNewHouse,

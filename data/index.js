@@ -53,6 +53,7 @@ const createNewHouse = (object, callback) => {
   });
 };
 
+
 module.exports = {
   getHouseInfo,
   getPremierAgentsByZip,
