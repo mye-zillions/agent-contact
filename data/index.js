@@ -41,7 +41,20 @@ const getPremierAgentsByZip = (queryParams, callback) => {
   });
 };
 
+const createNewHouse = (object, callback) => {
+  let query = `INSERT INTO listings (street, city, state, zip, listing_agent) VALUES ('${object.street}', '${object.city}', '${object.state}', ${object.zip}, ${object.listing_agent})`;
+  client.query(query, (err) => {
+    if (err) {
+      console.log(err);
+      callback(err);
+    } else {
+      callback(null);
+    }
+  });
+};
+
 module.exports = {
   getHouseInfo,
   getPremierAgentsByZip,
+  createNewHouse,
 };
