@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const pg = require('../data/index.js');
 const houses = require('./controllers/houses');
 
 const app = express();
@@ -24,7 +23,11 @@ app.post('/houses/:houseId', (req, res) => {
 // read
 app.get('/houses/:houseId', houses.getAllHouseInfo);
 
-app.get('/houses/:houseId/premierAgents', houses.getPremierAgents);
+// app.get('/agents', houses.getPremierAgentsByZip);
+
+// app.get('/agents/:agentId', houses.getAgentInfo);
+
+app.get('/houses/:houseId/premierAgents', houses.getPremierAgentsForHouse);
 
 // update
 app.patch('/houses/:houseId', (req, res) => {
