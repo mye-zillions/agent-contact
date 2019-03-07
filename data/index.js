@@ -21,21 +21,16 @@ const getHouseInfo = (listingId, callback) => {
   });
 };
 
-const getPremierAgentsForHouse = (listingId, callback) => {
-  client.query(`SELECT * from agents INNER JOIN listings on agents.zip = listings.zip WHERE listings.id = ${listingId}`, (err, data) => {
-    if (err) {
-      console.log(err);
-      callback(err);
-    } else {
-      callback(null, data.rows);
-    }
-  });
-};
-
 const getPremierAgentsByZip = (queryParams, callback) => {
   let params = queryParams.split('&');
-  let query = `SELECT * from agents WHERE ${params[0]} and ${params[1]}`;
-  console.log('params: ', params);
+  let query = 'SELECT * from agents WHERE ';
+  for (let i = 0; i < params.length; i++) {
+    if (i === params.length - 1) {
+      query += `${params[i]}`;
+    } else {
+      query += `${params[i]} and `;
+    }
+  }
   client.query(query, (err, data) => {
     if (err) {
       console.log(err);
@@ -48,7 +43,5 @@ const getPremierAgentsByZip = (queryParams, callback) => {
 
 module.exports = {
   getHouseInfo,
-  getPremierAgentsForHouse,
   getPremierAgentsByZip,
-  // getAgentInfo,
 };

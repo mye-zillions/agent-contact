@@ -19,21 +19,22 @@ class AllAgents extends React.Component {
     };
   }
   componentDidMount() {
-    axios.get(`/houses${window.location.pathname}`)
+    axios.get(`/api/houses${window.location.pathname}`)
       .then(response => {
         const listAgent = response.data[0];
-        this.setState({ lAgent: listAgent });
-      });
-    axios.get(`/houses${window.location.pathname}premierAgents`)
-      .then(response => {
-        const preAgent0 = response.data[0];
-        const preAgent1 = response.data[1];
-        const preAgent2 = response.data[2];
-        this.setState({
-          pAgent0: preAgent0,
-          pAgent1: preAgent1,
-          pAgent2: preAgent2,
-        });
+        const listingZip = response.data[0].zip;
+        axios.get(`/api/agents?premier=true&zip=${listingZip}`)
+          .then(response => {
+            const preAgent0 = response.data[0];
+            const preAgent1 = response.data[1];
+            const preAgent2 = response.data[2];
+            this.setState({
+              lAgent: listAgent,
+              pAgent0: preAgent0,
+              pAgent1: preAgent1,
+              pAgent2: preAgent2,
+            });
+          });
       });
   }
 
