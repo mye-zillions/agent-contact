@@ -12,7 +12,7 @@ function generateRandomData(userContext, events, done) {
   userContext.vars.street = street;
   userContext.vars.city = city;
   userContext.vars.state = state;
-  userContect.vars.zip = zip;
+  userContext.vars.zip = zip;
   userContext.vars.listing_agent = listing_agent;
   // continue with executing the scenario:
   return done();
