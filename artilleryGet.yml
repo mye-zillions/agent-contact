@@ -1,0 +1,15 @@
+config:
+  target: 'http://localhost:8081'
+  phases:
+    - duration: 60
+      arrivalRate: 250
+scenarios:
+  - flow:
+    - get:
+        url: "/api/houses/{{$randomNumber(1,10)}}"
+    - get:
+        url: "/api/houses/{{$randomNumber(1,10000000)}}"
+    - get:
+        url: "/api/agents?premier=true&zip={{$randomNumber(10000,10010)}}"
+    - get:
+        url: "/api/agents?premier=true&zip={{$randomNumber(10000,99999)}}"
