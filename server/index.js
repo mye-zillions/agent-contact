@@ -1,4 +1,6 @@
+require('newrelic');
 const express = require('express');
+const compression = require('compression');
 const bodyParser = require('body-parser');
 const path = require('path');
 const houses = require('./controllers/houses');
@@ -8,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 8081;
 
 app.use('/:houseId', express.static(path.resolve(__dirname, '../client/dist')));
+app.use(compression());
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
