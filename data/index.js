@@ -1,17 +1,18 @@
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
-const client = new Client({
+const pool = new Pool({
   // user: '',
   host: 'localhost',
   database: 'agent_contact',
   // password: '',
   // port: 3211,
+  max: 40,
 });
 
-client.connect();
+pool.connect();
 
 const getHouseInfo = (listingId, callback) => {
-  client.query(`SELECT listings.street, listings.city, listings.state, listings.zip, agents.name, agents.reviews, agents.recentSales, agents.phone, agents.premier, agents.photo FROM listings INNER JOIN agents on listings.listing_agent = agents.id WHERE listings.id = ${listingId}`, (err, data) => {
+  pool.query(`SELECT listings.street, listings.city, listings.state, listings.zip, agents.name, agents.reviews, agents.recentSales, agents.phone, agents.premier, agents.photo FROM listings INNER JOIN agents on listings.listing_agent = agents.id WHERE listings.id = ${listingId}`, (err, data) => {
     if (err) {
       console.log(err);
       callback(err);
@@ -31,7 +32,7 @@ const getPremierAgentsByZip = (queryParams, callback) => {
       query += `${params[i]} and `;
     }
   }
-  client.query(query, (err, data) => {
+  pool.query(query, (err, data) => {
     if (err) {
       console.log(err);
       callback(err);
@@ -43,7 +44,7 @@ const getPremierAgentsByZip = (queryParams, callback) => {
 
 const createNewHouse = (object, callback) => {
   let query = `INSERT INTO listings (street, city, state, zip, listing_agent) VALUES ('${object.street}', '${object.city}', '${object.state}', ${object.zip}, ${object.listing_agent})`;
-  client.query(query, (err) => {
+  pool.query(query, (err) => {
     if (err) {
       console.log(err);
       callback(err);
