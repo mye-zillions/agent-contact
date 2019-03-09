@@ -10,8 +10,4 @@ scenarios:
     - post:
         url: "/api/houses"
         json:
-          street: {{ street }}
-          city: {{ city }}
-          state: {{ state }}
-          zip: {{ zip }}
-          listing_agent: {{ listing_agent }}
+          "{{ payload }}"

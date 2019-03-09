@@ -3,17 +3,15 @@ const faker = require('faker');
 
 function generateRandomData(userContext, events, done) {
   // generate data with Faker:
-  const street = faker.address.streetAddress();
-  const city = faker.address.city();
-  const state = faker.address.stateAbbr();
-  const zip = faker.address.zipCode('#####');
-  const listing_agent = Math.ceil(Math.pow(Math.random(), 2) * 1000000);
+  const payload = {
+    street: escape(faker.address.streetAddress()),
+    city: escape(faker.address.city()),
+    state: faker.address.stateAbbr(),
+    zip: faker.address.zipCode('#####'),
+    listing_agent: Math.ceil(Math.pow(Math.random(), 2) * 1000000),
+  };
   // add variables to virtual user's context:
-  userContext.vars.street = street;
-  userContext.vars.city = city;
-  userContext.vars.state = state;
-  userContext.vars.zip = zip;
-  userContext.vars.listing_agent = listing_agent;
+  userContext.vars.payload = payload;
   // continue with executing the scenario:
   return done();
 }
