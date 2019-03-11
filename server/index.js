@@ -7,7 +7,7 @@ const houses = require('./controllers/houses');
 const agents = require('./controllers/agents');
 
 const app = express();
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8082;
 
 app.use('/:houseId', express.static(path.resolve(__dirname, '../client/dist')));
 app.use(compression());
