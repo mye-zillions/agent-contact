@@ -9,3 +9,5 @@ keys.js
 /data/data
 
 newrelic.config.js
+
+postgres.config.js
