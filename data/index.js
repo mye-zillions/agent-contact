@@ -1,13 +1,7 @@
 const { Pool } = require('pg');
+const config = require('./postgres.config.js');
 
-const pool = new Pool({
-  user: 'postgres',
-  host: '13.57.51.215',
-  // host: 'localhost',
-  database: 'agent_contact',
-  port: 5432,
-  max: 40,
-});
+const pool = new Pool(config.remote);
 
 pool.connect();
 
