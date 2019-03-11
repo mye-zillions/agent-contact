@@ -11,3 +11,4 @@ scenarios:
         url: "/api/houses"
         json:
           "{{ payload }}"
+          
