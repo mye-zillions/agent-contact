@@ -1,15 +1,14 @@
 config:
   target: 'http://localhost:8081'
+  processor: './artilleryFunctions.js'
   phases:
     - duration: 60
       arrivalRate: 1000
 scenarios:
   - flow:
+    - function: "generateRandomData"
     - post:
         url: "/api/houses"
         json:
-          street: "619 Ward Rapids"
-          city: "Keelingberg"
-          state: "OK"
-          zip: 12271
-          listing_agent: 14
+          "{{ payload }}"
+          
