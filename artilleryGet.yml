@@ -2,14 +2,25 @@ config:
   target: 'http://localhost:8081'
   phases:
     - duration: 60
-      arrivalRate: 250
+      arrivalRate: 1000
 scenarios:
-  - flow:
+  - name: "Most Popular Houses"
+    weight: 4
+    flow:
     - get:
-        url: "/api/houses/{{$randomNumber(1,10)}}"
+        url: "/api/houses/{{$randomNumber(1,100)}}"
+  - name: "Other Houses"
+    weight: 1
+    flow:
     - get:
-        url: "/api/houses/{{$randomNumber(1,10000000)}}"
+        url: "/api/houses/{{$randomNumber(100,10000000)}}"
+  - name: "Most Popular Agents"
+    weight: 4
+    flow:
     - get:
         url: "/api/agents?premier=true&zip={{$randomNumber(10000,10010)}}"
+  - name: "Other Agents"
+    weight: 1
+    flow:
     - get:
         url: "/api/agents?premier=true&zip={{$randomNumber(10000,99999)}}"
