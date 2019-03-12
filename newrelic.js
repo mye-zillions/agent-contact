@@ -10,7 +10,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['Zillions Agent Contact'],
+  app_name: ['EC2 Microservice'],
   /**
    * Your New Relic license key.
    */

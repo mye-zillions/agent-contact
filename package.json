@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "test": "jest || true",
-    "dev-pack": "webpack --watch",
+    "dev-pack": "webpack",
     "start": "node ./server/index.js",
     "server": "nodemon ./server/index.js",
     "faker": "node ./data/fakeData.js"
@@ -27,7 +27,6 @@
     "eslint-config-airbnb": "^17.1.0",
     "express": "^4.16.4",
     "mysql": "^2.16.0",
-    "newrelic": "^5.6.0",
     "path": "^0.12.7",
     "pg": "^7.8.1",
     "react": "^16.8.1",
@@ -41,6 +40,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "artillery": "^1.6.0-27",
     "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-styled-components": "^1.10.0",
@@ -57,6 +57,7 @@
     "fast-csv": "^2.4.1",
     "jest": "^24.1.0",
     "jest-styled-components": "^6.3.1",
+    "newrelic": "^5.6.1",
     "nodemon": "^1.18.9",
     "react-test-renderer": "^16.8.2"
   },
