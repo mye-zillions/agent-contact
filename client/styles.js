@@ -22,7 +22,7 @@ export const Title = styled.h2`
 export const AppContainer = styled.div`
 display: block;
 width: 300px;
-height: 850px;
+max-height: 850px;
 border: 1px solid #ccc;
 border-top: 2px solid #0074e4;
 box-shadow: 0 0 2px rgba(0,0,0,.2);
