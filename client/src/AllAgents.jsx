@@ -13,9 +13,7 @@ class AllAgents extends React.Component {
 
     this.state = {
       lAgent: {},
-      pAgent0: {},
-      pAgent1: {},
-      pAgent2: {},
+      pAgents: [],
     };
   }
   componentDidMount() {
@@ -25,14 +23,11 @@ class AllAgents extends React.Component {
         const listingZip = response.data[0].zip;
         axios.get(`/api/agents?premier=true&zip=${listingZip}`)
           .then(response => {
-            const preAgent0 = response.data[0];
-            const preAgent1 = response.data[1];
-            const preAgent2 = response.data[2];
+            let pAgents = response.data;
+            console.log(pAgents);
             this.setState({
               lAgent: listAgent,
-              pAgent0: preAgent0,
-              pAgent1: preAgent1,
-              pAgent2: preAgent2,
+              pAgents: pAgents,
             });
           });
       });
@@ -42,9 +37,7 @@ class AllAgents extends React.Component {
     return (
       <div>
         <ListedAgent lAgent={this.state.lAgent} />
-        <PremierAgent pAgents={this.state.pAgent0} />
-        <PremierAgent pAgents={this.state.pAgent1} />
-        <PremierAgent pAgents={this.state.pAgent2} />
+        <PremierAgent pAgents={this.state.pAgents} />
         <Ad>Learn how to appear as the agent above</Ad>
       </div>
     )
