@@ -11,7 +11,7 @@ import {
 } from '../styles.js';
 
 
-function App(props) {
+function Container(props) {
   return (
     <AppContainer>
       <Title>
@@ -27,5 +27,5 @@ function App(props) {
   )
 }
 
-export default App;
+export default Container;
 
